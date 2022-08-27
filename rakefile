@@ -26,6 +26,7 @@ end
 
 task :run_client do
     require_relative './lib/client'
+    require_relative './lib/menu_task'
 
     begin
 
@@ -35,7 +36,8 @@ task :run_client do
         name = STDIN.gets.chomp
         client.puts "#{name}"
 
-        local_typing_thread = Thread.new { HandleThread.local_typing(client) }
+        tasks = MenuTask.new
+        local_typing_thread = Thread.new { HandleThread.local_typing(client, tasks) }
         receive_from_server_thread = Thread.new { HandleThread.receive_from_server(client) }
 
         local_typing_thread.join
