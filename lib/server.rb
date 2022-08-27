@@ -9,9 +9,9 @@ class Server < TCPServer
         client_name = client.gets.chomp
         # client_avarta = "\u{1fkjj}"
 
-        client.puts "\u{1f50a} Hello #{client_name}! Clients connected: #{clients.count}"
+        client.puts "\u{1f50a}  Hello #{client_name}! Clients connected: #{clients.count}"
 
-        self.announce_to_everyone clients, "\u{1f50a} #{client_name} joined!"
+        self.announce_to_others clients, client, "\u{1f50a}  #{client_name} joined!"
 
         while line = client.gets do
             incoming_data_from_client = line.chomp
@@ -22,7 +22,7 @@ class Server < TCPServer
 
         client.close
         clients.delete(client)
-        self.announce_to_everyone clients, "\u{1f50a} #{client_name} left!"
+        self.announce_to_everyone clients, "\u{1f50a}  #{client_name} left!"
     end
 
     def announce_to_everyone(clients, text)
