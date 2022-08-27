@@ -1,0 +1,52 @@
+task :run_server do
+    require_relative './lib/server'
+
+    begin
+
+        server = Server.new "localhost", 2000
+        puts "Chat room is running!"
+
+        clients = []
+
+        loop do
+            client = server.accept
+            clients << client
+            Thread.new {
+                server.message_sysyem(clients, client)
+            }
+        end
+
+    rescue => error
+
+        puts error.message
+
+    end
+
+end
+
+task :run_client do
+    require_relative './lib/client'
+
+    begin
+
+        client = Client.new "localhost", 2000
+
+        puts "Enter your username:"
+        name = STDIN.gets.chomp
+        client.puts "#{name}"
+
+        local_typing_thread = Thread.new { HandleThread.local_typing(client) }
+        receive_from_server_thread = Thread.new { HandleThread.receive_from_server(client) }
+
+        local_typing_thread.join
+        receive_from_server_thread.join
+
+        client.close
+
+    rescue => error
+
+        puts error.message
+
+    end
+
+end

@@ -1,0 +1,25 @@
+#!/usr/bin/env ruby
+
+require_relative '../lib/client'
+
+begin
+
+    client = Client.new "localhost", 2000
+
+    puts "Enter your username:"
+    name = STDIN.gets.chomp
+    client.puts "#{name}"
+
+    local_typing_thread = Thread.new { HandleThread.local_typing(client) }
+    receive_from_server_thread = Thread.new { HandleThread.receive_from_server(client) }
+
+    local_typing_thread.join
+    receive_from_server_thread.join
+
+    client.close
+    
+rescue => error
+
+    puts error.message
+
+end
