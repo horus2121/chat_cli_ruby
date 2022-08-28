@@ -4,7 +4,7 @@ class MenuTask
         puts "\u{1f4d6}  1.Menu"
         puts "\u{1f4ad}  2.Get a fun fact"
         puts "\u{1f465}  3.Share a fun fact"
-        puts "\u{1f978}   4.Random number guessing game"
+        puts "\u{1f978}  4.Random number guessing game"
         puts "\u{1f6b6}  5.Quit room"
         puts "> Please enter '#' + 'number' to invoke a task!"
     end
@@ -67,8 +67,8 @@ class MenuTask
 
     end
 
-    def set_quick_replies
-    end
+    # def set_quick_replies
+    # end
 
     private
 
