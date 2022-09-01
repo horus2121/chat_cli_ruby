@@ -13,7 +13,7 @@ class HandleThread
             # input = STDIN.noecho(&:gets).chomp
             input = STDIN.gets.chomp
             case input.downcase
-            when "#1", "menu"
+            when "#1", "#menu"
                 # self.menu
                 tasks.menu
             when "#2", "#3"
@@ -22,7 +22,7 @@ class HandleThread
             when "#4"
                 # self.guess_number
                 tasks.guess_number
-            when "#5", "quit"
+            when "#5", "#quit"
                 exit
             else
                 client.puts input
